@@ -1,2 +1,2 @@
 # alpine-cloudplow
-Alpine Linux Docker image for the cloudplow rclone transfer service.
+Docker image for the cloudplow cloud media sync service, based on the official rclone/rclone Docker image.
