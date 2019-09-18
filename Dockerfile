@@ -7,7 +7,7 @@ RUN ln /usr/local/bin/rclone /usr/bin/rclone
 WORKDIR /
 
 # install dependencies for cloudplow and start script, upgrade pip
-RUN apk -U add git python3 py3-pip grep && \
+RUN apk -U add coreutils git python3 py3-pip grep && \
     python3 -m pip install --upgrade pip
 
 # configure environment variables to keep the start script clean
