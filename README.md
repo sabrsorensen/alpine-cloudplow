@@ -1,7 +1,7 @@
 # alpine-cloudplow
 Docker image for the cloudplow cloud media sync service, based on the official rclone/rclone Docker image.
 
-Sample docker-compose.yml configuration, where the rclone.conf is stored in ~/.config/rclone and media to upload is stored in /imported_media:
+Sample docker-compose.yml configuration, where the host's rclone.conf is stored in ~/.config/rclone and media to upload is stored in /imported_media:
 ```
     cloudplow:
         image: sabrsorensen/alpine-cloudplow
