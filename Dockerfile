@@ -32,7 +32,7 @@ RUN chmod +x /start-cloudplow.sh
 # map /config to host defined config path (used to store configuration from app)
 VOLUME /config
 
-CMD ["/bin/sh", "/start-cloudplow.sh"]
+ENTRYPOINT ["/bin/sh", "/start-cloudplow.sh"]
 
 #HEALTHCHECK --interval=20s --timeout=10s --start-period=10s --retries=5 \
 #    CMD ["/bin/sh", "/healthcheck-cloudplow.sh"]
