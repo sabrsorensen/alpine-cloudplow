@@ -20,7 +20,8 @@ ENV CLOUDPLOW_CACHEFILE /config/cache.db
 RUN git clone --depth 1 --single-branch --branch master https://github.com/l3uddz/cloudplow /opt/cloudplow && \
     cd /opt/cloudplow && \
     # install pip requirements
-    python3 -m pip install --no-cache-dir -r requirements.txt
+    python3 -m pip install --no-cache-dir -r requirements.txt && \
+    ln -sf /config/locks/ /opt/cloudplow/locks
 
 ADD start-cloudplow.sh /
 RUN chmod +x /start-cloudplow.sh
