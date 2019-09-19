@@ -12,6 +12,7 @@ Sample docker-compose.yml configuration, where the host's rclone.conf is stored 
             - /opt/cloudplow:/config/:rw
             - /home/<user>/.config/rclone:/config/rclone/:rw
             - /imported_media:/data/imported_media:rw
+            - /etc/localtime:/etc/localtime:ro
         restart: unless-stopped
 ```
 
