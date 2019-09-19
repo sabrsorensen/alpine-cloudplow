@@ -25,14 +25,7 @@ RUN git clone --depth 1 --single-branch --branch master https://github.com/l3udd
 ADD start-cloudplow.sh /
 RUN chmod +x /start-cloudplow.sh
 
-# Haven't determined a suitable healthcheck yet
-#ADD healthcheck-cloudplow.sh /
-#RUN chmod +x /healthcheck-cloudplow.sh
-
 # map /config to host defined config path (used to store configuration from app)
 VOLUME /config
 
 ENTRYPOINT ["/bin/sh", "/start-cloudplow.sh"]
-
-#HEALTHCHECK --interval=20s --timeout=10s --start-period=10s --retries=5 \
-#    CMD ["/bin/sh", "/healthcheck-cloudplow.sh"]
