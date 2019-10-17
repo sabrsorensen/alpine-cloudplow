@@ -1,12 +1,12 @@
 #!/usr/bin/with-contenv sh
 
-if [[ -z ${PUID+x} && $PUID -ne $(id -u cloudplow) ]]
+if [[ -z ${PUID+x} && $PUID != $(id -u cloudplow) ]]
 then
     usermod -o -u "$PUID" cloudplow
     update="true"
 fi
 
-if [[ -z ${PGID+x} && $PGID -ne $(id -g cloudplow) ]]
+if [[ -z ${PGID+x} && $PGID != $(id -g cloudplow) ]]
 then
     groupmod -o -g "$PGID" cloudplow
     update="true"
