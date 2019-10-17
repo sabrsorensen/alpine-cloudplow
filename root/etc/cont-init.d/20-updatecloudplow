@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+cd /opt/cloudplow
+exec s6-setuidgid cloudplow git pull

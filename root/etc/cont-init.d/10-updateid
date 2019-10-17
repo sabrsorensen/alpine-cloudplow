@@ -1,0 +1,25 @@
+#!/usr/bin/with-contenv bash
+
+if [[ -z ${PUID+x} && $PUID -ne $(id -u cloudplow) ]]
+then
+    usermod -o -u "$PUID" cloudplow
+    update="true"
+fi
+
+if [[ -z ${PGID+x} && $PGID -ne $(id -g cloudplow) ]]
+then
+    groupmod -o -g "$PGID" cloudplow
+    update="true"
+fi
+
+echo "GID/UID
+User uid:    $(id -u cloudplow)
+User gid:    $(id -g cloudplow)
+------------------------------------
+"
+
+if [[ -z ${update+x} ]]
+then
+    chown -R cloudplow:cloudplow /config
+    chown -R cloudplow:cloudplow /opt/cloudplow
+fi
