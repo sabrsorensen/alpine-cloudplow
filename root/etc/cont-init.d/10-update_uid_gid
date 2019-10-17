@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/usr/bin/with-contenv sh
 
 if [[ -z ${PUID+x} && $PUID -ne $(id -u cloudplow) ]]
 then
