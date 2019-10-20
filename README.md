@@ -1,5 +1,9 @@
 # alpine-cloudplow
-[![Docker Automated build](https://img.shields.io/docker/cloud/automated/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+type)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow) [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+status)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow) [![Docker Pulls](https://img.shields.io/docker/pulls/sabrsorensen/alpine-cloudplow)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow) [![Docker image size](https://images.microbadger.com/badges/image/sabrsorensen/alpine-cloudplow.svg)](https://microbadger.com/images/sabrsorensen/alpine-cloudplow "Get your own image badge on microbadger.com") [![rclone version](https://img.shields.io/github/v/release/rclone/rclone?label=rclone%20version)](https://hub.docker.com/r/rclone/rclone)
+[![Docker Automated build](https://img.shields.io/docker/cloud/automated/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+type)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+status)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
+[![Docker Pulls](https://img.shields.io/docker/pulls/sabrsorensen/alpine-cloudplow)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
+[![Docker image size](https://images.microbadger.com/badges/image/sabrsorensen/alpine-cloudplow.svg)](https://microbadger.com/images/sabrsorensen/alpine-cloudplow "Get your own image badge on microbadger.com")
+[![rclone version](https://img.shields.io/github/v/release/rclone/rclone?label=rclone%20version)](https://hub.docker.com/r/rclone/rclone)
 
 A Docker image for the [cloudplow](https://github.com/l3uddz/cloudplow) cloud media sync service, using [rclone's official Docker image](https://hub.docker.com/r/rclone/rclone) based on Alpine Linux as a foundation.
 
