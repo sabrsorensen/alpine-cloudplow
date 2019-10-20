@@ -14,7 +14,7 @@ RUN ln /root/rclone /usr/bin/rclone
 WORKDIR /
 
 # install dependencies for cloudplow and user management, upgrade pip
-RUN apk -U add coreutils git python3 py3-pip grep shadow && \
+RUN apk -U add --no-cache coreutils git python3 py3-pip grep shadow && \
     python3 -m pip install --upgrade pip
 
 # install s6-overlay for process management
@@ -25,7 +25,7 @@ RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 ADD root/ /
 
 # create cloudplow user
-RUN useradd -U -r -m -d /config -s /bin/false cloudplow
+RUN useradd -U -r -m -s /bin/false cloudplow
 
 # download cloudplow
 RUN git clone --depth 1 --single-branch --branch master https://github.com/l3uddz/cloudplow /opt/cloudplow && \
@@ -41,5 +41,8 @@ ENV CLOUDPLOW_CACHEFILE /config/cache.db
 
 # map /config to host defined config path (used to store configuration from app)
 VOLUME /config
+
+# map /data to media queued for upload
+VOLUME /data
 
 ENTRYPOINT ["/init"]

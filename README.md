@@ -21,6 +21,9 @@ Sample docker-compose.yml configuration, where the host's rclone.conf is stored 
     cloudplow:
         image: sabrsorensen/alpine-cloudplow
         container_name: cloudplow
+        environment:
+            - PUID=`id -u cloudplow`
+            - PGID=`id -g cloudplow`
         volumes:
             - /opt/cloudplow:/config/:rw
             - /home/<user>/.config/rclone:/config/rclone/:rw
