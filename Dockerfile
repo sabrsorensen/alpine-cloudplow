@@ -9,7 +9,7 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.build-date=$BUILD_DATE
 
 # linking the base image's rclone binary to the path expected by cloudplow's default config
-RUN ln /root/rclone /usr/bin/rclone
+RUN ln /usr/local/bin/rclone /usr/bin/rclone
 
 WORKDIR /
 
