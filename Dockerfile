@@ -14,7 +14,7 @@ RUN ln /root/rclone /usr/bin/rclone
 WORKDIR /
 
 # install dependencies for cloudplow and user management, upgrade pip
-RUN apk -U add --no-cache coreutils git python3 py3-pip grep shadow && \
+RUN apk -U add --no-cache coreutils git python3 py3-pip grep shadow tzdata && \
     python3 -m pip install --upgrade pip
 
 # install s6-overlay for process management
