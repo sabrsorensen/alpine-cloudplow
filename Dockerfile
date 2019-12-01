@@ -16,6 +16,7 @@ WORKDIR /
 # install dependencies for cloudplow and user management, upgrade pip
 RUN apk -U add --no-cache \
         coreutils \
+        findutils \
         git \
         grep \
         py3-pip \
