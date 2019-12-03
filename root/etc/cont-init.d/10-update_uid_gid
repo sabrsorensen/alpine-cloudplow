@@ -1,10 +1,19 @@
 #!/usr/bin/with-contenv sh
 
-if [ -n $PUID ] && [ $PUID == 0 ] && [ id cloudplow ]
+id cloudplow 2> /dev/null > /dev/null
+cloudplow_exists=$?
+if [ -n $PUID ] && [ $PUID == 0 ]
 then
-    userdel cloudplow
-    groupdel cloudplow
+    if [ cloudplow_exists == 0 ]
+    then
+        userdel cloudplow
+    fi
     exit
+fi
+
+if [ cloudplow_exists != 0 ]
+then
+    useradd -U -r -m -s /bin/false cloudplow
 fi
 
 if [ -n $PUID ] && [ $PUID != $(id -u cloudplow) ] && [ $PUID != 0 ]
@@ -19,14 +28,14 @@ then
     update="true"
 fi
 
-echo "GID/UID
-User uid:    $(id -u cloudplow)
-User gid:    $(id -g cloudplow)
-------------------------------------
-"
-
 if [ -n $update ]
 then
+    echo "GID/UID
+    User uid:    $(id -u cloudplow)
+    User gid:    $(id -g cloudplow)
+    ------------------------------------
+    "
+
     chown -R cloudplow:cloudplow /config
     chown -R cloudplow:cloudplow /opt/cloudplow
 fi
