@@ -4,16 +4,18 @@ id cloudplow 2> /dev/null > /dev/null
 cloudplow_exists=$?
 if [ -n $PUID ] && [ $PUID == 0 ]
 then
-    if [ cloudplow_exists == 0 ]
+    if [ $cloudplow_exists == 0 ]
     then
         userdel cloudplow
+        groupdel cloudplow
     fi
     exit
 fi
 
-if [ cloudplow_exists != 0 ]
+if [ $cloudplow_exists != 0 ]
 then
-    useradd -U -r -m -s /bin/false cloudplow
+    groupadd -g $PGID -r cloudplow
+    useradd -u $PUID -g $PGID -N -r -m -s /bin/false cloudplow
 fi
 
 if [ -n $PUID ] && [ $PUID != $(id -u cloudplow) ] && [ $PUID != 0 ]
