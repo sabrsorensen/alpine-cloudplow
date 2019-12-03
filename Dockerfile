@@ -36,10 +36,11 @@ ADD root/ /
 RUN useradd -U -r -m -s /bin/false cloudplow
 
 # download cloudplow
-RUN git clone --depth 1 --single-branch --branch master https://github.com/l3uddz/cloudplow /opt/cloudplow && \
-    cd /opt/cloudplow && \
-    # install pip requirements
-    python3 -m pip install --no-cache-dir -r requirements.txt
+RUN git clone --depth 1 --single-branch --branch master https://github.com/l3uddz/cloudplow /opt/cloudplow
+
+# install pip requirements
+WORKDIR /opt/cloudplow
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 # configure environment variables to keep the start script clean
 ENV CLOUDPLOW_CONFIG /config/config.json
@@ -47,8 +48,14 @@ ENV CLOUDPLOW_LOGFILE /config/cloudplow.log
 ENV CLOUDPLOW_LOGLEVEL DEBUG
 ENV CLOUDPLOW_CACHEFILE /config/cache.db
 
-# map /config to host defined config path (used to store configuration from app)
+# map /config to host directory containing cloudplow config (used to store configuration from app)
 VOLUME /config
+
+# map /rclone_config to host directory containing rclone configuration files
+VOLUME /rclone_config
+
+# map /service_accounts to host directory containing Google Drive service account .json files
+VOLUME /service_accounts
 
 # map /data to media queued for upload
 VOLUME /data

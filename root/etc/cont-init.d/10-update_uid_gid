@@ -1,12 +1,19 @@
 #!/usr/bin/with-contenv sh
 
-if [ -n $PUID ] && [ $PUID != $(id -u cloudplow) ]
+if [ -n $PUID ] && [ $PUID == 0 ] && [ id cloudplow ]
+then
+    userdel cloudplow
+    groupdel cloudplow
+    exit
+fi
+
+if [ -n $PUID ] && [ $PUID != $(id -u cloudplow) ] && [ $PUID != 0 ]
 then
     usermod -o -u "$PUID" cloudplow
     update="true"
 fi
 
-if [ -n $PGID ] && [ $PGID != $(id -g cloudplow) ]
+if [ -n $PGID ] && [ $PGID != $(id -g cloudplow) ] && [ $PGID != 0 ]
 then
     groupmod -o -g "$PGID" cloudplow
     update="true"

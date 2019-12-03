@@ -20,7 +20,7 @@ Cloudplow is an automatic rclone remote uploader with support for scheduled tran
 
 
 **Usage**
-Sample docker-compose.yml configuration, where the host's rclone.conf is stored in ~/.config/rclone and media to upload is stored in /imported_media:
+Sample docker-compose.yml configuration, where the host's rclone.conf is stored in ~/.config/rclone, one or more Google Drive service account .json files is located in ~/google_drive_service_accounts, and media to upload is stored in /imported_media:
 ```
     cloudplow:
         image: sabrsorensen/alpine-cloudplow
@@ -28,9 +28,14 @@ Sample docker-compose.yml configuration, where the host's rclone.conf is stored 
         environment:
             - PUID=`id -u cloudplow`
             - PGID=`id -g cloudplow`
+            - CLOUDPLOW_CONFIG=/config/config.json
+            - CLOUDPLOW_LOGFILE=/config/cloudplow.log
+            - CLOUDPLOW_LOGLEVEL=DEBUG
+            - CLOUDPLOW_CACHEFILE=/config/cache.db
         volumes:
             - /opt/cloudplow:/config/:rw
-            - /home/<user>/.config/rclone:/config/rclone/:rw
+            - /home/<user>/.config/rclone:/rclone_config/:rw
+            - /home/<user>/google_drive_service_accounts:/service_accounts/:rw
             - /imported_media:/data/imported_media:rw
             - /etc/localtime:/etc/localtime:ro
         restart: unless-stopped
@@ -42,7 +47,7 @@ Upon first run, the container will generate a sample config.json in the containe
     "core": {
         ...
         "rclone_binary_path": "/usr/bin/rclone",
-        "rclone_config_path": "/config/rclone/rclone.conf"
+        "rclone_config_path": "/rclone_config/rclone.conf"
         ...
     },
     ...
@@ -105,7 +110,8 @@ Upon first run, the container will generate a sample config.json in the containe
                 "enabled": false
             },
             "size_excludes": [
-            ]
+            ],
+            "service_account_path":"/service_accounts/"
         },
         ...
     }
