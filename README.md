@@ -1,4 +1,7 @@
-# alpine-cloudplow
+# DEPRECATED alpine-cloudplow DEPRECATED
+
+This project has been replaced by [this cloudplow fork](https://github.com/sabrsorensen/cloudplow) which includes the containerization changes from this repo along with other cloudplow modifications to facilitate containerization. Automated builds of this repo have been disabled, and I recommend replacing references to this image with `sabrsorensen/cloudplow`.
+
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+type)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+status)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
 [![Docker Pulls](https://img.shields.io/docker/pulls/sabrsorensen/alpine-cloudplow)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
