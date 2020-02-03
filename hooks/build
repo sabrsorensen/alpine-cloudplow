@@ -8,11 +8,6 @@ BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 COMMIT_AUTHOR=`git log -1 --pretty=format:'%ae'`
 VCS_REF=`git rev-parse --short HEAD`
 VCS_URL=`git config --get remote.origin.url | sed -e 's/git@github.com:/https:\/\/github.com\//'`
-echo $BRANCH
-echo $BUILD_DATE
-echo $COMMIT_AUTHOR
-echo $VCS_REF
-echo $VCS_URL
 docker build --build-arg BRANCH \
              --build-arg BUILD_DATE \
              --build-arg COMMIT_AUTHOR \
