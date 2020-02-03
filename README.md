@@ -1,7 +1,6 @@
-# DEPRECATED alpine-cloudplow DEPRECATED
+# alpine-cloudplow
 
-This project has been replaced by [this cloudplow fork](https://github.com/sabrsorensen/cloudplow) which includes the containerization changes from this repo along with other cloudplow modifications to facilitate containerization. Automated builds of this repo have been disabled, and I recommend replacing references to this image with `sabrsorensen/cloudplow`.
-
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%203-blue.svg?style=flat-square)](https://github.com/sabrsorensen/alpine-cloudplow/blob/master/LICENSE)
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+type)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+status)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
 [![Docker Pulls](https://img.shields.io/docker/pulls/sabrsorensen/alpine-cloudplow)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
@@ -10,43 +9,43 @@ This project has been replaced by [this cloudplow fork](https://github.com/sabrs
 
 A Docker image for the [cloudplow](https://github.com/l3uddz/cloudplow) cloud media sync service, using [rclone's official Docker image](https://hub.docker.com/r/rclone/rclone) based on Alpine Linux as a foundation.
 
-**Application**
+## Application
 
 [cloudplow](https://github.com/l3uddz/cloudplow)
 
 [rclone](https://github.com/rclone/rclone)
 
-
-**Description**
+## Description
 
 Cloudplow is an automatic rclone remote uploader with support for scheduled transfers, multiple remote/folder pairings, UnionFS control file cleanup, and synchronization between rclone remotes.
 
+## Usage
 
-**Usage**
 Sample docker-compose.yml configuration, where the host's rclone.conf is stored in ~/.config/rclone, one or more Google Drive service account .json files is located in ~/google_drive_service_accounts, and media to upload is stored in /imported_media:
-```
-    cloudplow:
-        image: sabrsorensen/alpine-cloudplow
-        container_name: cloudplow
-        environment:
-            - PUID=`id -u cloudplow`
-            - PGID=`id -g cloudplow`
-            - CLOUDPLOW_CONFIG=/config/config.json
-            - CLOUDPLOW_LOGFILE=/config/cloudplow.log
-            - CLOUDPLOW_LOGLEVEL=DEBUG
-            - CLOUDPLOW_CACHEFILE=/config/cache.db
-        volumes:
-            - /opt/cloudplow:/config/:rw
-            - /home/<user>/.config/rclone:/rclone_config/:rw
-            - /home/<user>/google_drive_service_accounts:/service_accounts/:rw
-            - /imported_media:/data/imported_media:rw
-            - /etc/localtime:/etc/localtime:ro
-        restart: unless-stopped
+
+```yaml
+cloudplow:
+  image: sabrsorensen/alpine-cloudplow
+  container_name: cloudplow
+  environment:
+    - PUID=`id -u cloudplow`
+    - PGID=`id -g cloudplow`
+    - CLOUDPLOW_CONFIG=/config/config.json
+    - CLOUDPLOW_LOGFILE=/config/cloudplow.log
+    - CLOUDPLOW_LOGLEVEL=DEBUG
+    - CLOUDPLOW_CACHEFILE=/config/cache.db
+  volumes:
+    - /opt/cloudplow:/config/:rw
+    - /home/<user>/.config/rclone:/rclone_config/:rw
+    - /home/<user>/google_drive_service_accounts:/service_accounts/:rw
+    - /imported_media:/data/imported_media:rw
+    - /etc/localtime:/etc/localtime:ro
+  restart: unless-stopped
 ```
 
 Upon first run, the container will generate a sample config.json in the container's /config. Edit this config.json to your liking, making sure to set rclone_config_path to the location of the rclone.conf you mapped into the container. Some suggested settings for uploading to a remote, but not synchronizing between remotes, are given below:
 
-```
+```json
     "core": {
         ...
         "rclone_binary_path": "/usr/bin/rclone",
@@ -121,4 +120,4 @@ Upon first run, the container will generate a sample config.json in the containe
 }
 ```
 
-Please refer to the official cloudplow documentation for additional information.
+Please refer to the official [cloudplow](https://github.com/l3uddz/cloudplow) documentation for additional information.
