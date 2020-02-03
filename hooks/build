@@ -5,7 +5,7 @@
 echo "Build hook running"
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
-COMMIT_AUTHOR=`git log -1 --pretty=format:'%an'`
+COMMIT_AUTHOR=`git log -1 --pretty=format:'%ae'`
 VCS_REF=`git rev-parse --short HEAD`
 VCS_URL=`git config --get remote.origin.url | sed -e 's/git@github.com:/https:\/\/github.com\//'`
 echo $BRANCH
