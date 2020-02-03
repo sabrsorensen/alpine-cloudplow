@@ -1,6 +1,8 @@
-.dockerignore
+.devcontainer/*
 .git/*
+.vscode/*
 hooks/*
+.dockerignore
 Dockerfile
-README.md
 LICENSE
+README.md
