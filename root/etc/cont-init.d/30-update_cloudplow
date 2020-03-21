@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv sh
+
+uid=${PUID:-1000}
+user=$(getent passwd $uid | awk -F: '{print $1}')
+cd /opt/cloudplow
+exec s6-setuidgid $user git pull
