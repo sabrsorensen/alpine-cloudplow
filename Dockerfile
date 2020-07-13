@@ -1,6 +1,6 @@
 FROM rclone/rclone
 
-ARG BRANCH="master"
+ARG BRANCH="main"
 ARG BUILD_DATE="unknown"
 ARG COMMIT_AUTHOR="unknown"
 ARG VCS_REF="unknown"
