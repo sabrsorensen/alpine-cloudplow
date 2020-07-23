@@ -3,13 +3,11 @@
 # $IMAGE_NAME var is injected into the build so the tag is correct.
 
 echo "Build hook running"
-BRANCH=`git rev-parse --abbrev-ref HEAD`
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 COMMIT_AUTHOR=`git log -1 --pretty=format:'%ae'`
 VCS_REF=`git rev-parse --short HEAD`
 VCS_URL=`git config --get remote.origin.url | sed -e 's/git@github.com:/https:\/\/github.com\//'`
-docker build --build-arg BRANCH=$BRANCH \
-             --build-arg BUILD_DATE=$BUILD_DATE \
+docker build --build-arg BUILD_DATE=$BUILD_DATE \
              --build-arg COMMIT_AUTHOR=$COMMIT_AUTHOR \
              --build-arg VCS_REF=$VCS_REF \
              --build-arg VCS_URL=$VCS_URL \
