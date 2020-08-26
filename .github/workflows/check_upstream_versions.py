@@ -40,9 +40,9 @@ print("Current detected versions:\n" + json.dumps(current_versions, indent=2))
 
 if old_versions == current_versions:
     print("No version change, skipping image rebuild.")
-    print("::set-env name=REBUILD::false")
+    print("::set-output name=build::false")
 else:
     print("Upstream versions changed.")
-    print("::set-env name=REBUILD::true")
+    print("::set-output name=build::true")
 
 sys.exit(0)
