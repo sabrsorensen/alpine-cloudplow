@@ -29,8 +29,7 @@ VOLUME /service_accounts
 VOLUME /data
 
 # install dependencies for cloudplow and user management, upgrade pip
-RUN apk update --no-cache && \
-    apk -U add --no-cache \
+RUN apk -U add --no-cache \
     coreutils \
     findutils \
     git \
@@ -46,7 +45,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v1.22.1.0/s6
 RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
 # download cloudplow
-RUN git clone --depth 1 --single-branch https://github.com/l3uddz/cloudplow /opt/cloudplow
+RUN git clone --depth 1 --single-branch --branch develop https://github.com/l3uddz/cloudplow /opt/cloudplow
 
 WORKDIR /opt/cloudplow
 ENV PATH=/opt/cloudplow:${PATH}

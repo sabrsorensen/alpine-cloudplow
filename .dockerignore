@@ -1,7 +1,7 @@
 .devcontainer/*
 .git/*
+.github/*
 .vscode/*
-hooks/*
 .dockerignore
 Dockerfile
 LICENSE

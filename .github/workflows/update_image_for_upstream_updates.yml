@@ -1,0 +1,75 @@
+name: Rebuild with upstream updates
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  check_versions_and_rebuild:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture: [linux-arm-v7, linux-arm64, linux-amd64]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check for upstream updates
+        run: pip install docker gitpython requests && python .github/workflows/check_upstream_versions.py
+
+      - name: Set up Docker Buildx
+        if: ${{ env.REBUILD == 'true' }}
+        uses: crazy-max/ghaction-docker-buildx@v3
+
+      - name: Login to DockerHub
+        if: ${{ env.REBUILD == 'true' }}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+
+      - name: Build images using buildx
+        if: ${{ env.REBUILD == 'true' }}
+        run: |
+          ARCHITECTURE=${{ matrix.architecture }}
+          docker buildx build \
+            --platform ${ARCHITECTURE//-/\/} \
+            --output "type=image,push=true" \
+            --tag ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-${ARCHITECTURE//linux-/} \
+            --tag ${GITHUB_REPOSITORY}:${ARCHITECTURE//linux-/} \
+            --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --build-arg COMMIT_AUTHOR="$(git log -1 --pretty=format:'%ae')" \
+            --build-arg VCS_REF="${GITHUB_SHA}" \
+            --build-arg VCS_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
+            --file ./Dockerfile ./
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [check_versions_and_rebuild]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Enable experimental
+        run: |
+          mkdir ~/.docker && echo '{"experimental": "enabled"}' > ~/.docker/config.json
+      - name: Login to DockerHub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+      - name: Create docker manifest
+        run: |
+          docker manifest create ${GITHUB_REPOSITORY}:${GITHUB_SHA:0:7} \
+                --amend ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-amd64 \
+                --amend ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-arm-v7 \
+                --amend ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-arm64
+          docker manifest push ${GITHUB_REPOSITORY}:${GITHUB_SHA:0:7}
+          docker manifest create ${GITHUB_REPOSITORY}:latest \
+                --amend ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-amd64 \
+                --amend ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-arm-v7 \
+                --amend ${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-arm64
+          docker manifest push ${GITHUB_REPOSITORY}:latest
