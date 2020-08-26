@@ -22,7 +22,7 @@ try:
     old_versions['alpine-cloudplow_commit_ref'] = client.images.get(
         os.environ['GITHUB_REPOSITORY']).labels['org.label-schema.vcs-ref']
     old_versions['s6_release'] = client.containers.run(
-        os.environ['GITHUB_REPOSITORY'], command='touch /etc/S6_RELEASE; cat /etc/S6_RELEASE', auto_remove=True, entrypoint='').decode('UTF-8').strip()
+        os.environ['GITHUB_REPOSITORY'], command='cat /etc/S6_RELEASE', auto_remove=True, entrypoint='').decode('UTF-8').strip()
     print("Detected image versions:\n" + json.dumps(old_versions, indent=2))
 except docker.errors.ContainerError as e:
     print(e)
