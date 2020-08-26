@@ -41,10 +41,12 @@ RUN apk -U add --no-cache \
     python3 -m pip install --no-cache-dir --upgrade pip
 
 # install s6-overlay for process management
-RUN curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]' > /etc/S6_RELEASE && \
+RUN apk -Uq --no-cache add curl && \
+    curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]' > /etc/S6_RELEASE && \
     wget https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-amd64.tar.gz -O /tmp/s6-overlay-amd64.tar.gz && \
     tar xzf /tmp/s6-overlay-amd64.tar.gz -C / && \
     rm /tmp/s6-overlay-amd64.tar.gz && \
+    apk -q del curl && \
     echo "Installed s6-overlay `cat /etc/S6_RELEASE`"
 
 # download cloudplow
