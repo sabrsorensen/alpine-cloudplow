@@ -61,7 +61,7 @@ jobs:
 
       - name: Enable experimental
         run: |
-          mkdir ~/.docker && echo '{"experimental": "enabled"}' > ~/.docker/config.json
+          echo '{"experimental": "enabled"}' > ~/.docker/config.json
       - name: Login to DockerHub
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
