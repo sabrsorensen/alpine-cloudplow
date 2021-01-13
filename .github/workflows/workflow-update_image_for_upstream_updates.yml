@@ -1,0 +1,67 @@
+name: Rebuild with upstream updates
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  check_versions:
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.check.outputs.build}}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check for upstream updates
+        id: check
+        run: bash .github/workflows/check_upstream_versions.sh
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [check_versions]
+    if: ${{ needs.check_versions.outputs.build == 'true' }}
+    strategy:
+      matrix:
+        architecture: [linux-arm-v7, linux-arm64, linux-amd64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push images using buildx
+        run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build.sh
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Enable experimental Docker features
+        run: |
+          echo '{"experimental": "enabled"}' >> ~/.docker/config.json
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Create and push docker manifest
+        run: |
+          .github/workflows/docker_manifest.sh
