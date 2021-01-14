@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
       - ".devcontainer/**"
+      - ".github/dependabot.yml"
       - ".vscode/**"
       - "LICENSE"
       - "README.md"
