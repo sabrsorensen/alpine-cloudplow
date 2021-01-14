@@ -1,10 +1,8 @@
 # alpine-cloudplow
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%203-blue.svg?style=flat-square)](https://github.com/sabrsorensen/alpine-cloudplow/blob/main/LICENSE)
-[![Docker Automated build](https://img.shields.io/docker/cloud/automated/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+type)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sabrsorensen/alpine-cloudplow?label=Docker+Cloud+build+status)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
-[![Docker Pulls](https://img.shields.io/docker/pulls/sabrsorensen/alpine-cloudplow)](https://hub.docker.com/r/sabrsorensen/alpine-cloudplow)
-[![Docker image size](https://images.microbadger.com/badges/image/sabrsorensen/alpine-cloudplow.svg)](https://microbadger.com/images/sabrsorensen/alpine-cloudplow "Get your own image badge on microbadger.com")
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%203-blue.svg?style=flat)](https://github.com/sabrsorensen/alpine-cloudplow/blob/main/LICENSE)
+[![Container Build](https://img.shields.io/github/workflow/status/sabrsorensen/alpine-cloudplow/Build%20and%20push%20image?label=Container%20Build)](https://github.com/sabrsorensen/alpine-cloudplow/actions?query=workflow%3A%22Build+and+push+image%22)
+[![Rebuild for Upstream Updates](https://img.shields.io/github/workflow/status/sabrsorensen/alpine-cloudplow/Rebuild%20with%20upstream%20updates?label=Rebuild%20for%20Upstream%20Updates)](https://github.com/sabrsorensen/alpine-cloudplow/actions?query=workflow%3A%22Rebuild+with+upstream+updates%22)
 [![rclone version](https://img.shields.io/github/v/release/rclone/rclone?label=rclone%20version)](https://hub.docker.com/r/rclone/rclone)
 
 A Docker image for the [cloudplow](https://github.com/l3uddz/cloudplow) cloud media sync service, using [rclone's official Docker image](https://hub.docker.com/r/rclone/rclone) based on Alpine Linux as a foundation.
