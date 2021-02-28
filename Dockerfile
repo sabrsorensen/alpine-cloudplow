@@ -55,6 +55,7 @@ RUN git clone --depth 1 --single-branch --branch develop https://github.com/l3ud
 
 WORKDIR /opt/cloudplow
 ENV PATH=/opt/cloudplow:${PATH}
+RUN git config pull.ff only
 
 # install pip requirements
 RUN python3 -m pip install --no-cache-dir --upgrade -r requirements.txt
