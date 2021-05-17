@@ -1,4 +1,4 @@
-name: Build and push image
+name: Test PR - Build image
 on:
   workflow_dispatch:
   pull_request:
