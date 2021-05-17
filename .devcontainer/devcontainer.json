@@ -20,7 +20,6 @@
     // This will ignore your local shell user setting for Linux since shells like zsh are typically
     // not in base container images. You can also update this to an specific shell to ensure VS Code
     // uses the right one for terminals and tasks. For example, /bin/bash (or /bin/ash for Alpine).
-    "terminal.integrated.shell.linux": null,
     "python.pythonPath": "/usr/bin/python3"
   },
   // Use 'appPort' to create a container with published ports. If the port isn't working, be sure

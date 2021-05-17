@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and push images using buildx
-        run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build.sh
+        run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build_and_push.sh
 
   publish:
     runs-on: ubuntu-latest
