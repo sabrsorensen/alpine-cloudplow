@@ -2,6 +2,8 @@ name: Build and push image
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths-ignore:
       - ".devcontainer/**"
       - ".github/dependabot.yml"
