@@ -1,12 +1,12 @@
-name: Build branch image
+name: Test PR - Build image
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
       - main
 
 jobs:
-  build_branch:
+  build_pr:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,4 +24,4 @@ jobs:
           version: latest
 
       - name: Build images using buildx
-        run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build.sh
+        run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build_pr.sh
