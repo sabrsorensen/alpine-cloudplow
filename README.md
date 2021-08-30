@@ -23,7 +23,7 @@ Sample docker-compose.yml configuration, where the host's rclone.conf is stored 
 
 ```yaml
 cloudplow:
-  image: sabrsorensen/alpine-cloudplow
+  image: ghcr.io/sabrsorensen/alpine-cloudplow
   container_name: cloudplow
   environment:
     - PUID=`id -u cloudplow`
