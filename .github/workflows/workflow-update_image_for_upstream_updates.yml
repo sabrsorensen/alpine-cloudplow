@@ -36,11 +36,8 @@ jobs:
         with:
           version: latest
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1.10.0
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push images using buildx
         run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build_and_push.sh
@@ -55,11 +52,8 @@ jobs:
       - name: Enable experimental Docker features
         run: 'echo ''{"experimental": "enabled"}'' > ~/.docker/config.json'
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1.10.0
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Create and push docker manifest
         run: .github/workflows/docker_manifest.sh
