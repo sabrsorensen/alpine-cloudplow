@@ -22,6 +22,6 @@ curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/l
 s6_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-$s6_arch-`cat /etc/S6_RELEASE | sed 's/v//'`.tar.xz"
 echo "Downloading from $s6_url" && \
 wget $s6_url -O /tmp/s6-overlay.tar.xz && \
-tar xzf /tmp/s6-overlay.tar.xz -C / && \
+tar xJf /tmp/s6-overlay.tar.xz -C / && \
 rm /tmp/s6-overlay.tar.xz && \
 echo "Installed s6-overlay `cat /etc/S6_RELEASE` ($s6_arch)"
