@@ -15,7 +15,7 @@ case "$s6_arch" in
     s6_arch="aarch64"
     ;;
   amd64)
-    s6_arch="amd64"
+    s6_arch="x86_64"
     ;;
 esac
 curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]' >/etc/S6_RELEASE && \
