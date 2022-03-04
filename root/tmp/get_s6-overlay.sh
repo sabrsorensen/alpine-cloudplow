@@ -30,7 +30,7 @@ rm /tmp/s6-overlay-noarch.tar.xz && \
 echo "Downloading from $s6_arch_url" && \
 wget $s6_arch_url -O /tmp/s6-overlay-${s6_arch}.tar.xz && \
 tar xJf /tmp/s6-overlay-${s6_arch}.tar.xz -C / && \
-rm /tmp/s6-overlay.tar.xz && \
+rm /tmp/s6-overlay-${s6_arch}.tar.xz && \
 echo "Downloading from $s6_symlinks_noarch_url" && \
 wget $s6_arch_url -O /tmp/s6-overlay-symlinks-noarch.tar.xz && \
 tar xJf /tmp/s6-overlay-symlinks-noarch.tar.xz -C / && \
