@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/command/with-contenv sh
 
 uid=${PUID:-1000}
 user=$(getent passwd $uid | awk -F: '{print $1}')
