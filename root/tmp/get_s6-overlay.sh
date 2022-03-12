@@ -21,7 +21,7 @@ esac
 curl -sX GET "https://api.github.com/repos/just-containers/s6-overlay/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]' >/etc/S6_RELEASE && \
 s6_arch_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-$s6_arch.tar.xz"
 s6_noarch_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-noarch.tar.xz"
-s6_symlinks_arch_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-symlinks-$s6_arch.tar.xz"
+s6_symlinks_arch_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-symlinks-arch.tar.xz"
 s6_symlinks_noarch_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-symlinks-noarch.tar.xz"
 
 echo "Downloading from $s6_noarch_url" && \
