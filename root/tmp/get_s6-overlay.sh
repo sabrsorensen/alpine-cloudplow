@@ -25,18 +25,18 @@ s6_symlinks_arch_url="https://github.com/just-containers/s6-overlay/releases/dow
 s6_symlinks_noarch_url="https://github.com/just-containers/s6-overlay/releases/download/`cat /etc/S6_RELEASE`/s6-overlay-noarch.tar.xz"
 echo "Downloading from $s6_noarch_url" && \
 wget $s6_arch_url -O /tmp/s6-overlay-noarch.tar.xz && \
-tar xJf /tmp/s6-overlay-noarch.tar.xz -C / && \
+tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz -C / && \
 rm /tmp/s6-overlay-noarch.tar.xz && \
 echo "Downloading from $s6_arch_url" && \
 wget $s6_arch_url -O /tmp/s6-overlay-${s6_arch}.tar.xz && \
-tar xJf /tmp/s6-overlay-${s6_arch}.tar.xz -C / && \
+tar -C / -Jxpf /tmp/s6-overlay-${s6_arch}.tar.xz && \
 rm /tmp/s6-overlay-${s6_arch}.tar.xz && \
 echo "Downloading from $s6_symlinks_noarch_url" && \
 wget $s6_arch_url -O /tmp/s6-overlay-symlinks-noarch.tar.xz && \
-tar xJf /tmp/s6-overlay-symlinks-noarch.tar.xz -C / && \
+tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
 rm /tmp/s6-overlay-symlinks-noarch.tar.xz && \
 echo "Downloading from $s6_symlinks_arch_url" && \
-wget $s6_arch_url -O /tmp/s6-overlay-symlinks-arch.tar.xz && \
-tar xJf /tmp/s6-overlay-symlinks-arch.tar.xz -C / && \
+wget $s6_arch_url -O /tmp/s6-overlay-symlinks-arch.tar.xz && 
+tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
 rm /tmp/s6-overlay-symlinks-arch.tar.xz && \
 echo "Installed s6-overlay `cat /etc/S6_RELEASE` ($s6_arch)"
