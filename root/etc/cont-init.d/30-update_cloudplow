@@ -3,4 +3,4 @@
 uid=${PUID:-1000}
 user=$(getent passwd $uid | awk -F: '{print $1}')
 cd /opt/cloudplow
-exec /command/s6-setuidgid $user git pull
+exec s6-setuidgid $user git pull
