@@ -2,7 +2,7 @@
 
 docker buildx build \
 #    --platform ${ARCHITECTURE//-/\/} \
-    --output "type=registry" \
+    --output "type=image,push=true" \
     --tag ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-${ARCHITECTURE//linux-/} \
     --build-arg ARCH="${ARCHITECTURE//linux-/}" \
     --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
