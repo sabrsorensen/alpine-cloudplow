@@ -28,8 +28,8 @@ fi
 if [[ $build ]]
 then
     echo "Triggering build."
-    echo "::set-output name=build::true"
+    echo "build=true" >> $GITHUB_OUTPUT
 else
     echo "No build needed."
-    echo "::set-output name=build::false"
+    echo "build=false" >> $GITHUB_OUTPUT
 fi
