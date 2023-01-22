@@ -33,7 +33,18 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push images using buildx
-        run: ARCHITECTURE=${{ matrix.architecture }} .github/workflows/docker_build_and_push.sh
+        run: |
+          ARCHITECTURE=${{ matrix.architecture }}
+          docker buildx build \
+          --platform ${ARCHITECTURE//-/\/} \
+          --output "type=image,push=true" \
+          --tag ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-${ARCHITECTURE//linux-/} \
+          --build-arg ARCH="${ARCHITECTURE//linux-/}" \
+          --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+          --build-arg COMMIT_AUTHOR="$(git log -1 --pretty=format:'%ae')" \
+          --build-arg VCS_REF="${GITHUB_SHA}" \
+          --build-arg VCS_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
+          --file ./Dockerfile ./
 
   publish:
     runs-on: ubuntu-latest
