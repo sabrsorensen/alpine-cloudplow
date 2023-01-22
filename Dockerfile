@@ -39,7 +39,7 @@ RUN apk -U add --no-cache \
     python3 \
     shadow \
     tzdata && \
-    python3 -m pip install --no-cache-dir --upgrade pip
+    python3 -m pip install --no-cache-dir --upgrade pip wheel
 
 # add s6-overlay scripts and config
 ADD root/ /
