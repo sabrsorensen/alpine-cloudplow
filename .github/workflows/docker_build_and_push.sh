@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker build \
+docker buildx build \
     --platform ${ARCHITECTURE//-/\/} \
     --output "type=image,push=true" \
     --tag ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-${ARCHITECTURE//linux-/} \
