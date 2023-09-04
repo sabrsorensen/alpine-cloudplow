@@ -19,7 +19,7 @@ jobs:
         architecture: [linux-arm-v7, linux-arm64, linux-amd64]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -41,7 +41,7 @@ jobs:
     needs: [build_main]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Enable experimental Docker features
         run: 'echo ''{"experimental": "enabled"}'' > ~/.docker/config.json'
