@@ -36,10 +36,10 @@ RUN apk -U add --no-cache \
     git \
     grep \
     py3-pip \
+    py3-wheel \
     python3 \
     shadow \
-    tzdata && \
-    python3 -m pip install --no-cache-dir --upgrade pip wheel
+    tzdata
 
 # add s6-overlay scripts and config
 ADD root/ /
@@ -58,7 +58,7 @@ ENV PATH=/opt/cloudplow:${PATH}
 RUN git config pull.ff only
 
 # install pip requirements
-RUN python3 -m pip install --no-cache-dir --upgrade -r requirements.txt
+RUN python3 -m pip install --no-cache-dir --upgrade --break-system-packages -r requirements.txt
 
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["/init"]
